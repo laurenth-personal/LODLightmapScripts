@@ -10,6 +10,8 @@ Apply this script on a gameobject with a meshrenderer to copy the lightmap setti
 You need to disable/enable the component or play in order to see the effect.
 In order to use this script both objects need to use the same lightmap UV layout.
 
+![StealLightmap](https://github.com/laurenth-unity/LODLightmapScripts/blob/master/Images/StealLightmap.gif)
+
 In the SampleScene the moss mesh uses this script. The moss has been generated using the same UV layout as the rock (each moss element has one lightmap UV coordinate), then the moss is not set to lightmap static, it just copies the lightmap settings from the rock in order to receive the same lightmap and so the lighting matches between the moss and the rock.
 
 ## LightmappedLOD.cs
