@@ -1,5 +1,7 @@
 # LODLightmapScripts
-Scripts useful when using LODs and lightmaps. These scripts were made for the fontainebleau project available on Unity forums [FORUM THREAD](https://forum.unity.com/threads/photogrammetry-in-unity-making-real-world-objects-into-digital-assets.521946/)
+Scripts useful when using LODs and lightmaps. These scripts were made for the fontainebleau project available on Unity forums
+
+[FORUM THREAD](https://forum.unity.com/threads/photogrammetry-in-unity-making-real-world-objects-into-digital-assets.521946/)
 
 
 Project compatible with Unity 2018.2.5f1
