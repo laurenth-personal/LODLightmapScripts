@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Acquire activation file
+
+# Controls when the action will run. 
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  activation:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+    steps:
+
+      # Runs a set of commands using the runners shell
+      - name: Unity - Request Activation File
+        id: getManualLicenseFile
+        # You may pin to the exact commit or the version.
+        # uses: game-ci/unity-request-activation-file@de1240e14622163607d94eecb76d8fbc250d4504
+        uses: game-ci/unity-request-activation-file@v2.0-alpha-1
+        with:
+          # Version of unity to use for building the project.
+          unityVersion: 2019.4.13f1 # optional, default is 2019.2.11f1
+      - name: Expose as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.getManualLicenseFile.outputs.filePath }}
+          path: ${{ steps.getManualLicenseFile.outputs.filePath }}
