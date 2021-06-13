@@ -29,18 +29,13 @@ jobs:
             Library-${{ matrix.projectPath }}-
             Library-
 
-      - name: Unity - Builder
-        # You may pin to the exact commit or the version.
-        # uses: game-ci/unity-builder@9fff3627757a76db932be572b62521043322e901
-        uses: game-ci/unity-builder@v2.0-alpha-10
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          # Version of unity to use for building the project. Use "auto" to get from your ProjectSettings/ProjectVersion.txt
-          unityVersion: 2019.4.13f1 # optional, default is auto
-          # Platform that the build should target.
-          targetPlatform: # optional, default is 
-            StandaloneWindows64
+          targetPlatform: StandaloneWindows64
           # Relative path to the project to be built.
           #projectPath: # optional, default is 
           # Name of the build.
