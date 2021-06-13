@@ -40,7 +40,8 @@ jobs:
           unityVersion: 2019.4.13f1 # optional, default is auto
           # Platform that the build should target.
           targetPlatform: # optional, default is 
-            -StandaloneWindows64 # Relative path to the project to be built.
+            StandaloneWindows64
+          # Relative path to the project to be built.
           #projectPath: # optional, default is 
           # Name of the build.
           #buildName: # optional, default is 
