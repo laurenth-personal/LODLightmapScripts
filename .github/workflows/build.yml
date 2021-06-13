@@ -1,0 +1,102 @@
+# This is a basic workflow to help you get started with Actions
+
+name: BUILD
+
+# Controls when the action will run. 
+on:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          lfs: true
+      - uses: actions/cache@v2
+        with:
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-${{ matrix.projectPath }}-
+            Library-
+
+      - name: Unity - Activate
+        # You may pin to the exact commit or the version.
+        # uses: game-ci/unity-activate@cda570d7590fe63b7f718e6a052e170462c07361
+        uses: game-ci/unity-activate@v1.3
+        with:
+          # Version of unity to use for building the project.
+          unityVersion: 2019.4.13f1 # optional, default is 2019.2.11f1
+
+      - name: Unity - Builder
+        # You may pin to the exact commit or the version.
+        # uses: game-ci/unity-builder@9fff3627757a76db932be572b62521043322e901
+        uses: game-ci/unity-builder@v2.0-alpha-10
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          # Version of unity to use for building the project. Use "auto" to get from your ProjectSettings/ProjectVersion.txt
+          unityVersion: 2019.4.13f1 # optional, default is auto
+          # Platform that the build should target.
+          targetPlatform: # optional, default is 
+            -StandaloneWindows64 # Relative path to the project to be built.
+          #projectPath: # optional, default is 
+          # Name of the build.
+          #buildName: # optional, default is 
+          # Path where the builds should be stored.
+          #buildsPath: # optional, default is 
+          # Path to a Namespace.Class.StaticMethod to run to perform the build.
+          #buildMethod: # optional, default is 
+          # Either local, k8s or aws can be used to run builds on a remote cluster. Additional parameters must be configured.
+          #remoteBuildCluster: # optional, default is local
+          # The Cloud Formation stack name that must be setup before using this option.
+          #awsStackName: # optional, default is game-ci
+          # Supply a base64 encoded kubernetes config to run builds on kubernetes and stream logs until completion.
+          #kubeConfig: # optional, default is 
+          # Supply a Persistent Volume Claim name to use for the Unity build.
+          #kubeVolume: # optional, default is 
+          # Amount of memory to assign the remote build container
+          #remoteBuildMemory: # optional, default is 800M
+          # Amount of CPU time to assign the remote build container
+          #remoteBuildCpu: # optional, default is 0.25
+          # Amount of disc space to assign the Kubernetes Persistent Volume
+          #kubeVolumeSize: # optional, default is 5Gi
+          # GitHub token for cloning, only needed when kubeconfig is used.
+          #githubToken: # optional, default is 
+          # The versioning scheme to use when building the project
+          #versioning: # optional, default is Semantic
+          # The version, when used with the "Custom" versioning scheme
+          #version: # optional, default is 
+          # The android versionCode
+          #androidVersionCode: # optional, default is 
+          # Whether to build .aab instead of .apk
+          #androidAppBundle: # optional, default is false
+          # The android keystoreName
+          #androidKeystoreName: # optional, default is 
+          # The base64 contents of the android keystore file
+          #androidKeystoreBase64: # optional, default is 
+          # Custom parameters to configure the build.
+          #Parameters must start with a hyphen (-) and may be followed by a value (without hyphen). Parameters without a value will be considered booleans (with a value of true).
+
+          #customParameters: # optional, default is 
+          # User and optionally group (user or user:group or uid:gid) to give ownership of the resulting build artifacts
+          #chownFilesTo: # optional, default is 
+          # Allows the branch of the build to be dirty, and still generate the build.
+          #Note that it is generally bad practice to modify your branch in a CI Pipeline. However there are exceptions where this might be needed. (use with care).
+
+          #allowDirtyBuild: # optional, default is 
+
+          # Output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: build
