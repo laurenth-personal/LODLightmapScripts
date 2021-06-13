@@ -29,14 +29,6 @@ jobs:
             Library-${{ matrix.projectPath }}-
             Library-
 
-      - name: Unity - Activate
-        # You may pin to the exact commit or the version.
-        # uses: game-ci/unity-activate@cda570d7590fe63b7f718e6a052e170462c07361
-        uses: game-ci/unity-activate@v1.3
-        with:
-          # Version of unity to use for building the project.
-          unityVersion: 2019.4.13f1 # optional, default is 2019.2.11f1
-
       - name: Unity - Builder
         # You may pin to the exact commit or the version.
         # uses: game-ci/unity-builder@9fff3627757a76db932be572b62521043322e901
